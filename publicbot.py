@@ -1,67 +1,32 @@
 # -*- coding: utf-8 -*-
-from PRANKBOTS import *
+from SLACKBOT import *
 from datetime import datetime
 from time import sleep
-# EDITOR | ACIL
-# VERSION | PYTHON 3
-# VORKED | PRANKBOT INDONESIA
-#======HARGAI HAK CIPTA| JIKA MERUBAH NAMA BOT SILAHKAN CANTUMKAN NAMA BOT ASALNYA
-#=== CONTOH || CREATOR BY. SAPRI || BOT GARANG || SUPORT BY.PRANKBOTS
-
-#TAMBAHAN INSTALL
-# tinggal di pastekan aja sob
-# apt install python3-pip
-# pip3 install bs4 gtts
+# EDITOR: GALANK
+# VERSION: PYTHON 3
+# MODE: PUBLICBOT
 from bs4 import BeautifulSoup
 from gtts import gTTS
 import time, random, sys, json, codecs,  threading, glob, re, string, os, requests, subprocess, six, urllib, urllib.parse, ast
+#=============================================================#
 botStart = time.time()
-prank = LineClient()
-prank.log("Auth Token : " + str(prank.authToken))
-channel = LineChannel(prank)
-prank.log("Channel Access Token : " + str(channel.channelAccessToken))
-prankProfile = prank.getProfile()
-prankSettings = prank.getSettings()
-prankPoll = LinePoll(prank)
-prankMID = prank.profile.mid
-contact = prank.getProfile()
-backup = prank.getProfile()
+
+Galank = LineClient()
+Galank.log("Auth Token : " + str(Galank.authToken))
+channel = LineChannel(Galank)
+Galank.log("Channel Access Token : " + str(channel.channelAccessToken))
+
+GalankProfile = Galank.getProfile()
+GalankSettings = Galank.getSettings()
+GalankPoll = LinePoll(Galank)
+GalankMID = Galank.profile.mid
+contact = Galank.getProfile()
+backup = Galank.getProfile()
 backup.displayName = contact.displayName
 backup.statusMessage = contact.statusMessage
 backup.pictureStatus = contact.pictureStatus
-cl = prank
-#=[REVIEW DAFTAR BOT DAN HARGA]
+cl = Galank
 
-#DAFTAR:_______|_______PERPANJANG:
-#=======[SELFBOT ONLY]
-#selfbot only                              ~ 50k ||50k
-
-#=======[SELFBOT PROTECT]
-#1 selfbot + 2 asist                  ~ 100k || 80k
-#1 selfbot + 2 asist + 1 kicker ~ 100k ||100k 
-#1 selfbot + 3asist + 2 kicker ~ 150k || 150k
-#1 selfbot + 4 asist + 2 kicker ~ 200k || 150k
-#1 selfbot + 5 asist + 2 kicker ~ 200k || 200k
-#1 selfbot + 6 asist + 2 kicker ~ 250k|| 200k
-#1 selfbot + 7 asist + 2 kicker ~ 250k|| 250k
-#1 selfbot + 8 asist + 2 kicker ~ 300k || 250k
-
-#=======[SELFBOT PREMIUM]
-#2 selfbot + 10 asist + 4 kicker ~ 500k || 450k
-#2 selfbot + 12 asist + 4 kicker ~ 500k || 500k
-#=================
-
-
-#=======[PROTECT GRUP]
-#👉 BOT PROTECT PER GRUP
-#MAXIMAL 2 ADMIN 👉 5 bot~ 50k  per bulan
-#MAXIMAL 3 ADMIN 👉 8 bot ~100k per bulan
-#MAXIMAL 4 ADMIN 👉 11 bot ~ 150k per bulan
-
-#[[SEMUA SELFBOT SUDAH TERMASUK OWNER BOT PROTECT]]
-#== GABUNGAN SELFBOT DENGAN BOT PROTECT ==
-
-#MINAT PM ID  👉     http://line.me/ti/p/~adiputra.95
 settings = {
     "autoAdd":False,
     "autoJoin":False,
@@ -80,9 +45,9 @@ myProfile = {
 	"pictureStatus": ""
 }
 
-myProfile["displayName"] = prankProfile.displayName
-myProfile["statusMessage"] = prankProfile.statusMessage
-myProfile["pictureStatus"] = prankProfile.pictureStatus
+myProfile["displayName"] = GalankProfile.displayName
+myProfile["statusMessage"] = GalankProfile.statusMessage
+myProfile["pictureStatus"] = GalankProfile.pictureStatus
 #==============================================================================#
 def restartBot():
     print ("[ INFO ] BOT RESETTED")
@@ -95,7 +60,7 @@ def mention(to, nama):
     strt = int(0)
     akh = int(0)
     nm = nama
-    myid = prank.getProfile().mid
+    myid = Galank.getProfile().mid
     if myid in nm:    
         nm.remove(myid)
     for mm in nm:
@@ -107,64 +72,64 @@ def mention(to, nama):
         aa = (aa[:int(len(aa)-1)])
         text = bb
     try:
-        prank.sendMessage(msg.to, text, contentMetadata={'MENTION':'{"MENTIONEES":['+aa+']}'}, contentType=0)
+        Galank.sendMessage(msg.to, text, contentMetadata={'MENTION':'{"MENTIONEES":['+aa+']}'}, contentType=0)
     except Exception as error:
         print(error)
 #===============SB ONLY====================
 #===================================#
 def help():
-    helpMessage = "╭━━╦℘̰̰̈́ґ̰̰̈́∂̰̰̈́η̰̰̈́к̰̰̈́╦в̰̰̈́❍̰̰̈́т̰̰̈́ѕ̰̰̈́╦━━╮\n┣╦━━━╩PUBLIC BOTS╩━━━━" + "\n" + \
-                  "┣╦Nama Bot╦ " + prankProfile.displayName + "\n" + \
-                  "┣╦Help" + "\n" + \
-                  "┣╦Set" + "\n" + \
-                  "┣╦Me" + "\n" + \
-                  "┣╦Add" + "\n" + \
-                  "┣╦Creator" + "\n" + \
-                  "┣╦Restart" + "\n" + \
-                  "┣╦Speed" + "\n" + \
-                  "┣╦Runtime" + "\n" + \
-                  "┣╦Mymid" + "\n" + \
-                  "┣╦Myname" + "\n" + \
-                  "┣╦Mybio" + "\n" + \
-                  "┣╦Mypicture" + "\n" + \
-                  "┣╦Myvideo" + "\n" + \
-                  "┣╦Mycover" + "\n" + \
-                  "┣╦Getmid @" + "\n" + \
-                  "┣╦Getbio @" + "\n" + \
-                  "┣╦Getname @" + "\n" + \
-                  "┣╦Getpicture @" + "\n" + \
-                  "┣╦Getvideo @" + "\n" + \
-                  "┣╦Getcontact @" + "\n" + \
-                  "┣╦Getcover @" + "\n" + \
-                  "┣╦Getprofile @" + "\n" + \
-                  "┣━━━━━━━━━━━━" + "\n" + \
-                  "┣╦Cloneprofile @" + "\n" + \
-                  "┣╦Restoreprofile" + "\n" + \
-                  "┣╦Cekmid *mid" + "\n" + \
-                  "┣╦Friendlist" + "\n" + \
-                  "┣╦Blocklist" + "\n" + \
-                  "┣╦Mention" + "\n" + \
-                  "┣╦Lurk:on" + "\n" + \
-                  "┣╦Lurk:off" + "\n" + \
+    helpMessage = "╭══════╬╬═══════╮\n   PUBLIC BOTS\n╰══════╬╬═══════╯" + "\n" + \
+                  "╠➣NAMA BOT" + GalankProfile.displayName + "\n" + \
+                  "╠➣Help" + "\n" + \
+                  "╠➣Set" + "\n" + \
+                  "╠➣Me" + "\n" + \
+                  "╠➣Add" + "\n" + \
+                  "╠➣Creator" + "\n" + \
+                  "╠➣Restart" + "\n" + \
+                  "╠➣Speed" + "\n" + \
+                  "╠➣Runtime" + "\n" + \
+                  "╠➣Mymid" + "\n" + \
+                  "╠➣Myname" + "\n" + \
+                  "╠➣Mybio" + "\n" + \
+                  "╠➣Mypicture" + "\n" + \
+                  "╠➣Myvideo" + "\n" + \
+                  "╠➣Mycover" + "\n" + \
+                  "╠➣Getmid @" + "\n" + \
+                  "╠➣Getbio @" + "\n" + \
+                  "╠➣Getname @" + "\n" + \
+                  "╠➣Getpicture @" + "\n" + \
+                  "╠➣Getvideo @" + "\n" + \
+                  "╠➣Getcontact @" + "\n" + \
+                  "╠➣Getcover @" + "\n" + \
+                  "╠➣Getprofile @" + "\n" + \
+                  "╠══════════════" + "\n" + \
+                  "╠➣Cloneprofile @" + "\n" + \
+                  "╠➣Restoreprofile" + "\n" + \
+                  "╠➣Cekmid *mid" + "\n" + \
+                  "╠➣Friendlist" + "\n" + \
+                  "╠➣Blocklist" + "\n" + \
+                  "╠➣Mention" + "\n" + \
+                  "╠➣Lurk:on" + "\n" + \
+                  "╠➣Lurk:off" + "\n" + \
                   "┣╦Lurk:rest" + "\n" + \
-                  "┣╦Lurkers" + "\n" + \
-                  "┣━━━━━╩━━━╩━━━━━\n┣━╦🇮🇩CREATOR INDONESIA🇮🇩╦━╣\n╰━━╩℘̰̰̈́ґ̰̰̈́∂̰̰̈́η̰̰̈́к╩̰̰̈́в̰̰̈́❍̰̰̈́т̰̰̈́ѕ̰̰̈́╩━━╯"
+                  "╠➣Lurkers" + "\n" + \
+                  "╰══════╬╬═══════╯\n╭══════╬╬═══════╮\n    ●TΣΔM SLΔCҜβΩT●\nline.me/ti/p/~fuck.you__"
     return helpMessage
 while True:
     try:
-        ops=prankPoll.singleTrace(count=50)
+        ops=GalankPoll.singleTrace(count=50)
         
         for op in ops:
             if op.type == 5:
-                prank.findAndAddContactsByMid(op.param1)
-                xname = prank.getContact(op.param1).displayName
-                prank.sendMessage(op.param1, "Hay " + xname + "\nBOT PUBLIC VORKED : PRANKBOTS\n\nOWNER BOTS\nhttp://line.me/ti/p/~adiputra.95")
+                Galank.findAndAddContactsByMid(op.param1)
+                xname = Galank.getContact(op.param1).displayName
+                Galank.sendMessage(op.param1, "Hay " + xname + "\nBOT PUBLIC: ●SLΔCҜβΩT●\n\nOWNER BOT\nhttp://line.me/ti/p/~fuck.you__")
             if op.type == 13:
                 print ("[NOTIFIED_INVITE_INTO_GROUP]")
-                if prankMID in op.param3:
-                    G = prank.getGroup(op.param1)
-                    prank.acceptGroupInvitation(op.param1)
-            if op.type == 26: ## JIKA INI DI GANTI KE 25 JADI SELFBOT ONLY ^_^ [VORKED PRANKBOTS]
+                if GalankMID in op.param3:
+                    G = Galank.getGroup(op.param1)
+                    Galank.acceptGroupInvitation(op.param1)
+            if op.type == 26: ## JIKA INI DI GANTI KE 25 JADI SELFBOT ONLY
                 print ("[ 26 ] READ MESSAGE")
                 msg = op.message
                 text = msg.text
@@ -174,71 +139,71 @@ while True:
                 try:
                     if msg.contentType == 0:
                         if msg.toType == 2:
-                            prank.sendChatChecked(receiver, msg_id)
-                            contact = prank.getContact(sender)
+                            Galank.sendChatChecked(receiver, msg_id)
+                            contact = Galank.getContact(sender)
                             if text.lower() == "help":
                                helpMessage = help()
-                               prank.sendMessage(msg.to, str(helpMessage))
-                               prank.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
+                               Galank.sendMessage(msg.to, str(helpMessage))
+                               Galank.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
                             if text.lower() == 'speed':
                                 start = time.time()
-                                prank.sendMessage(receiver, "waitting..")
+                                Galank.sendMessage(receiver, "Sabar sayang..")
                                 elapsed_time = time.time() - start
-                                prank.sendMessage(receiver, "%sdetik" % (elapsed_time))
+                                Galank.sendMessage(receiver, "%sdetik" % (elapsed_time))
                             elif text.lower() == 'restart':
-                                prank.sendMessage(msg.to, "Bot Program has been restarted")
+                                Galank.sendMessage(msg.to, "Bot Program has been restarted")
                                 restartBot()
                             elif text.lower() == 'runtime':
                             	eltime = time.time() - botStart
                             	timerun = "Bot has been active "+waktu(eltime)
-                            	prank.sendMessage(msg.to,timerun)
+                            	Galank.sendMessage(msg.to,timerun)
 #==============================================================================#
                             elif text.lower() == 'me':
-                                prank.sendContact(msg.to, prankMID)
-                                prank.sendMessage(msg.to,"Ini kontak saya")
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
-                                prank.sendMessage(msg.to,"Ini kontak kamu")
+                                Galank.sendContact(msg.to, GalankMID)
+                                Galank.sendMessage(msg.to,"Ini kontak Aku Beb")
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
+                                Galank.sendMessage(msg.to,"Ini kontakmu Beb")
                             elif text.lower() == 'add':		
-                                prank.sendMessage(msg.to,"❂•••••••••✧••••••••••❂")
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': 'u5818cb4404411c2e2e6e6937d172cca8'}, contentType=13)
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': 'udfaf52176415b46cb445ae2757ec85f3'}, contentType=13)
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': 'u17a086ccff618e754588a1108335867f'}, contentType=13)
-                                prank.sendMessage(msg.to,"❂•••••••••✧••••••••••❂")
+                                Galank.sendMessage(msg.to,"╭══════╬╬═══════╮")
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': 'u78643d09e42a36836a17cc918963a8b7'}, contentType=13)
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': 'u290d3072b043ff4796a9a91f145931e0'}, contentType=13)
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': 'uf8d981e0bc9184560956ced35c4372be'}, contentType=13)
+                                Galank.sendMessage(msg.to,"╰══════╬╬═══════╯")
                             elif text.lower() == 'creator':		
-                                prank.sendMessage(msg.to,"❂•••••••••✧••••••••••❂")
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': 'u961be7189409ffd9138c7206e35003b0'}, contentType=13)
-                                prank.sendMessage(msg.to,"❂•••••••••✧••••••••••❂")
+                                Galank.sendMessage(msg.to,"╭══════╬╬═══════╮")
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': 'u78643d09e42a36836a17cc918963a8b7'}, contentType=13)
+                                Galank.sendMessage(msg.to,"╰══════╬╬═══════╯")
                             elif text.lower() == 'mymid':
-                                prank.sendMessage(msg.to, sender)
-                                prank.sendMessage(msg.to,"Ini mid kamu")
+                                Galank.sendMessage(msg.to, sender)
+                                Galank.sendMessage(msg.to,"Ini mid kamu beb")
                             elif text.lower() == 'myname':
-                                me = prank.getContact(prankMID)
-                                me1 = prank.getContact(sender)
-                                prank.sendMessage(msg.to,"nama ku\n" + me.displayName + "\nnama kamu\n" + me1.displayName)
+                                me = Galank.getContact(GalankMID)
+                                me1 = Galank.getContact(sender)
+                                Galank.sendMessage(msg.to,"nama ku\n" + me.displayName + "\nnama kamu\n" + me1.displayName)
                             elif text.lower() == 'mybio':
-                                me = prank.getContact(sender)
-                                prank.sendMessage(msg.to,"[Status kamu]\n" + me.statusMessage)
+                                me = Galank.getContact(sender)
+                                Galank.sendMessage(msg.to,"[Status kamu]\n" + me.statusMessage)
                             elif text.lower() == 'mypicture':
-                                h = prank.getContact(prankMID)
+                                h = Galank.getContact(GalankMID)
                                 path = "http://dl.profile.line.naver.jp/" + h.pictureStatus
-                                prank.sendImageWithURL(msg.to, str(path))
-                                prank.sendMessage(msg.to,"Ini foto profile saya")
-                                me1 = prank.getContact(sender)
+                                Galank.sendImageWithURL(msg.to, str(path))
+                                Galank.sendMessage(msg.to,"Ini foto profile saya")
+                                me1 = Galank.getContact(sender)
                                 path = "http://dl.profile.line-cdn.net/" + me1.pictureStatus
-                                prank.sendImageWithURL(msg.to, str(path))
-                                prank.sendMessage(msg.to,"Ini foto profile kamu")
+                                Galank.sendImageWithURL(msg.to, str(path))
+                                Galank.sendMessage(msg.to,"Ini foto profile kamu")
                             elif text.lower() == 'myvideo':
-                                me = prank.getContact(sender)
-                                prank.sendVideoWithURL(to,"http://dl.profile.line-cdn.net/" + me.pictureStatus + "/vp")
+                                me = Galank.getContact(sender)
+                                Galank.sendVideoWithURL(to,"http://dl.profile.line-cdn.net/" + me.pictureStatus + "/vp")
                             elif text.lower() == 'mycover':
-                                me = prank.getContact(prankMID)
-                                cover = channel.getProfileCoverURL(prankMID)    
-                                prank.sendImageWithURL(msg.to, cover)
-                                prank.sendMessage(msg.to,"Ini foto branda saya")
-                                me1 = prank.getContact(sender)
+                                me = Galank.getContact(GalankMID)
+                                cover = channel.getProfileCoverURL(GalankMID)    
+                                Galank.sendImageWithURL(msg.to, cover)
+                                Galank.sendMessage(msg.to,"Ini foto branda saya")
+                                me1 = Galank.getContact(sender)
                                 cover1 = channel.getProfileCoverURL(sender)    
-                                prank.sendImageWithURL(msg.to, cover1)
-                                prank.sendMessage(msg.to,"Ini foto branda kamu")
+                                Galank.sendImageWithURL(msg.to, cover1)
+                                Galank.sendMessage(msg.to,"Ini foto branda kamu")
                             elif 'getmid' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -251,7 +216,7 @@ while True:
                                     ret_ = "[ Mid User ]"
                                     for ls in lists:
                                         ret_ += "\n{}" + ls
-                                    prank.sendMessage(msg.to, str(ret_))
+                                    Galank.sendMessage(msg.to, str(ret_))
                             elif 'getpicture' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -262,8 +227,8 @@ while True:
                                         if mention["M"] not in lists:
                                             lists.append(mention["M"])
                                     for ls in lists:
-                                        path = "http://dl.profile.line.naver.jp/" + prank.getContact(ls).pictureStatus
-                                        prank.sendImageWithURL(msg.to, str(path))
+                                        path = "http://dl.profile.line.naver.jp/" + Galank.getContact(ls).pictureStatus
+                                        Galank.sendImageWithURL(msg.to, str(path))
                             elif 'getcover' in text.lower():
                                 if channel != None:
                                     if 'MENTION' in msg.contentMetadata.keys()!= None:
@@ -276,7 +241,7 @@ while True:
                                                 lists.append(mention["M"])
                                         for ls in lists:
                                             path = channel.getProfileCoverURL(ls)
-                                            prank.sendImageWithURL(msg.to, str(path))
+                                            Galank.sendImageWithURL(msg.to, str(path))
                             elif 'getname' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -287,8 +252,8 @@ while True:
                                         if mention["M"] not in lists:
                                             lists.append(mention["M"])
                                     for ls in lists:
-                                        contact = prank.getContact(ls)
-                                        prank.sendMessage(msg.to, "[ Display Name ]\n" + contact.displayName)
+                                        contact = Galank.getContact(ls)
+                                        Galank.sendMessage(msg.to, "[ Display Name ]\n" + contact.displayName)
                             elif 'getbio' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -299,8 +264,8 @@ while True:
                                         if mention["M"] not in lists:
                                             lists.append(mention["M"])
                                     for ls in lists:
-                                        contact = prank.getContact(ls)
-                                        prank.sendMessage(msg.to, "[ Status Message ]\n{}" + contact.statusMessage)
+                                        contact = Galank.getContact(ls)
+                                        Galank.sendMessage(msg.to, "[ Status Message ]\n{}" + contact.statusMessage)
                             elif 'getprofile' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -311,13 +276,13 @@ while True:
                                         if mention["M"] not in lists:
                                             lists.append(mention["M"])
                                     for ls in lists:
-                                        contact = prank.getContact(ls)
+                                        contact = Galank.getContact(ls)
                                         cu = channel.getProfileCoverURL(ls)
                                         path = str(cu)
                                         image = "http://dl.profile.line-cdn.net/" + contact.pictureStatus
-                                        prank.sendMessage(msg.to,"Nama :\n" + contact.displayName + "\nMid :\n" + contact.mid + "\n\nBio :\n" + contact.statusMessage)
-                                        prank.sendImageWithURL(msg.to,image)
-                                        prank.sendImageWithURL(msg.to,path)
+                                        Galank.sendMessage(msg.to,"Nama :\n" + contact.displayName + "\nMid :\n" + contact.mid + "\n\nBio :\n" + contact.statusMessage)
+                                        Galank.sendImageWithURL(msg.to,image)
+                                        Galank.sendImageWithURL(msg.to,path)
                             elif 'getcontact' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -328,9 +293,9 @@ while True:
                                         if mention["M"] not in lists:
                                             lists.append(mention["M"])
                                     for ls in lists:
-                                        contact = prank.getContact(ls)
+                                        contact = Galank.getContact(ls)
                                         mi_d = contact.mid
-                                        prank.sendContact(msg.to, mi_d)
+                                        Galank.sendContact(msg.to, mi_d)
                             elif 'cloneprofile' in text.lower():
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -340,8 +305,8 @@ while True:
                                         contact = mention["M"]
                                         break
                                     try:
-                                        prank.cloneContactProfile(contact)
-                                        prank.sendMessage(msg.to, "Berhasil clone member tunggu beberapa saat sampai profile berubah")
+                                        Galank.cloneContactProfile(contact)
+                                        Galank.sendMessage(msg.to, "Berhasil clone member tunggu beberapa saat sampai profile berubah")
                                     except:
                                         prank.sendMessage(msg.to, "Gagal clone member")
                             elif text.lower() == 'restoreprofile':
@@ -349,39 +314,39 @@ while True:
                                     clientProfile.displayName = str(myProfile["displayName"])
                                     clientProfile.statusMessage = str(myProfile["statusMessage"])
                                     clientProfile.pictureStatus = str(myProfile["pictureStatus"])
-                                    prank.updateProfileAttribute(8, clientProfile.pictureStatus)
-                                    prank.updateProfile(clientProfile)
-                                    prank.sendMessage(msg.to, "Berhasil restore profile tunggu beberapa saat sampai profile berubah")
+                                    Galank.updateProfileAttribute(8, clientProfile.pictureStatus)
+                                    Galank.updateProfile(clientProfile)
+                                    Galank.sendMessage(msg.to, "Berhasil restore profile tunggu beberapa saat sampai profile berubah")
                                 except:
-                                    prank.sendMessage(msg.to, "Gagal restore profile")
+                                    Galank.sendMessage(msg.to, "Gagal restore profile")
                             elif 'cekmid' in text.lower():
                                 separate = text.split(" ")
                                 saya = text.replace(separate[0] + " ","")
-                                prank.sendMessage(receiver, None, contentMetadata={'mid': saya}, contentType=13)
+                                Galank.sendMessage(receiver, None, contentMetadata={'mid': saya}, contentType=13)
                                 
                             elif text.lower() == 'friendlist':
-                                contactlist = prank.getAllContactIds()
-                                kontak = prank.getContacts(contactlist)
+                                contactlist = Galank.getAllContactIds()
+                                kontak = Galank.getContacts(contactlist)
                                 num=1
                                 msgs="═════════List Friend═════════"
                                 for ids in kontak:
                                     msgs+="\n[%i] %s" % (num, ids.displayName)
                                     num=(num+1)
                                 msgs+="\n═════════List Friend═════════\n\nTotal Friend : %i" % len(kontak)
-                                prank.sendMessage(msg.to, msgs)
+                                Galank.sendMessage(msg.to, msgs)
                                 
                             elif text.lower() == 'blocklist':
-                                blockedlist = prank.getBlockedContactIds()
-                                kontak = prank.getContacts(blockedlist)
+                                blockedlist = Galank.getBlockedContactIds()
+                                kontak = Galank.getContacts(blockedlist)
                                 num=1
                                 msgs="═════════List Blocked═════════"
                                 for ids in kontak:
                                     msgs+="\n[%i] %s" % (num, ids.displayName)
                                     num=(num+1)
                                 msgs+="\n═════════List Blocked═════════\n\nTotal Blocked : %i" % len(kontak)
-                                prank.sendMessage(msg.to, msgs)
+                                Galank.sendMessage(msg.to, msgs)
                             elif text.lower() == 'mention':
-                                group = prank.getGroup(msg.to)
+                                group = Galank.getGroup(msg.to)
                                 nama = [contact.mid for contact in group.members]
                                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
                                 if jml <= 100:
@@ -432,7 +397,7 @@ while True:
                                     for m in range(401, len(nama)):
                                         nm5 += [nama[m]]
                                     mention(msg.to, nm5)             
-                                prank.sendMessage(receiver, "Members :"+str(jml))
+                                Galank.sendMessage(receiver, "Members :"+str(jml))
                             elif text.lower() == 'lurk:on':
                                 tz = pytz.timezone("Asia/Jakarta")
                                 timeNow = datetime.now(tz=tz)
@@ -473,7 +438,7 @@ while True:
                                     read['ROM'][msg.to] = {}
                                     with open('sider.json', 'w') as fp:
                                         json.dump(read, fp, sort_keys=True, indent=4)
-                                        prank.sendMessage(msg.to, "Set reading point:\n" + readTime)
+                                        Galank.sendMessage(msg.to, "Set reading point:\n" + readTime)
                                         
                             elif text.lower() == 'lurk:off':
                                 tz = pytz.timezone("Asia/Jakarta")
@@ -489,7 +454,7 @@ while True:
                                     if bln == str(k): bln = bulan[k-1]
                                 readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
                                 if msg.to not in read['readPoint']:
-                                    prank.sendMessage(msg.to,"Lurking already off")
+                                    Galank.sendMessage(msg.to,"Lurking already off")
                                 else:
                                     try:
                                             del read['readPoint'][msg.to]
@@ -497,7 +462,7 @@ while True:
                                             del read['readTime'][msg.to]
                                     except:
                                           pass
-                                    prank.sendMessage(msg.to, "Delete reading point:\n" + readTime)
+                                    Galank.sendMessage(msg.to, "Delete reading point:\n" + readTime)
                 
                             elif text.lower() == 'lurk:rest':
                                 tz = pytz.timezone("Asia/Jakarta")
@@ -520,9 +485,9 @@ while True:
                                         read["ROM"][msg.to] = {}
                                     except:
                                         pass
-                                    prank.sendMessage(msg.to, "Reset reading point:\n" + readTime)
+                                    Galank.sendMessage(msg.to, "Reset reading point:\n" + readTime)
                                 else:
-                                    prank.sendMessage(msg.to, "Lurking belum diaktifkan ngapain di reset?")
+                                    Galank.sendMessage(msg.to, "Lurking belum diaktifkan ngapain di reset?")
                                     
                             elif text.lower() == 'lurkers':
                                 tz = pytz.timezone("Asia/Jakarta")
@@ -560,14 +525,14 @@ while True:
                                         zxc += pesan2
                                     text = xpesan+ zxc + "\nLurking time: \n" + readTime
                                     try:
-                                        prank.sendMessage(receiver, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
+                                        Galank.sendMessage(receiver, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
                                     except Exception as error:
                                         print (error)
                                     pass
                                 else:
-                                    prank.sendMessage(receiver,"Lurking has not been set.")
+                                    Galank.sendMessage(receiver,"Lurking has not been set.")
                 except Exception as e:
-                    prank.log("[SEND_MESSAGE] ERROR : " + str(e))
+                    Galank.log("[SEND_MESSAGE] ERROR : " + str(e))
                     
             if op.type == 55:
                 print ("[ 55 ] NOTIFIED READ MESSAGE")
@@ -582,7 +547,7 @@ while True:
                        pass
                 except:
                     pass
-            prankPoll.setRevision(op.revision)
+            GalankPoll.setRevision(op.revision)
             
     except Exception as e:
-        prank.log("[SINGLE_TRACE] ERROR : " + str(e))
+        Galank.log("[SINGLE_TRACE] ERROR : " + str(e))
