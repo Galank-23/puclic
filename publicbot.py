@@ -111,7 +111,7 @@ def help():
                   "╠➣Mention" + "\n" + \
                   "╠➣Lurk:on" + "\n" + \
                   "╠➣Lurk:off" + "\n" + \
-                  "┣╦Lurk:rest" + "\n" + \
+                  "╠➣Lurk:rest" + "\n" + \
                   "╠➣Lurkers" + "\n" + \
                   "╰══════╬╬═══════╯\n╭══════╬╬═══════╮\n    ●TΣΔM SLΔCҜβΩT●\nline.me/ti/p/~fuck.you__"
     return helpMessage
